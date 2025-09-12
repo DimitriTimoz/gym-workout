@@ -1,18 +1,60 @@
-| Ressource                                                                                                            | Description / ce qu’on y apprend                                                                                                                                                                                                                                                                 | Difficulté / usage                                                                                                |
-| -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
-| **Reinforcement Learning with Gymnasium: A Practical Guide** (DataCamp) ([DataCamp][1])                              | Bon tutoriel d’introduction à Gymnasium, les boucles RL, et quelques exemples simples. Utile pour se familiariser avec l’API *reset / step / render*.                                                                                                                                            | Débutant – bon pour mettre les mains dedans rapidement.                                                           |
-| **Part 12.1: Introduction to Gymnasium** (Colab notebook, Jeff Heaton) ([Google Colab][2])                           | Un notebook Colab déjà fait, qui présente Gymnasium et fait le tour rapide d’un agent dans CartPole, etc.                                                                                                                                                                                        | Débutant → intermédiaire, bon pour faire du live sur Colab.                                                       |
-| **“Getting Started With OpenAI Gym: The Basic Building Blocks”** (DigitalOcean) ([DigitalOcean][3])                  | Un tutoriel “from scratch” (même s’il cible OpenAI Gym) qui détaille le fonctionnement des environnements, les *spaces*, les loop RL, et présente MountainCar. Ça peut facilement être adapté à Gymnasium.                                                                                       | Débutant → intermédiaire. Très pédagogique pour les notions de base.                                              |
-| **“Tutorial: An Introduction to Reinforcement Learning Using OpenAI Gym”** (Taxi-v3 + Q-Learning) ([gocoder.one][4]) | Un tutoriel classique avec Taxi (pick-up/drop-off), random agent, Q-learning, et une discussion sur *exploration vs exploitation*. Très clair, et le code est simple à reprendre.                                                                                                                | Intermédiaire — bonne base tabulaire, si tu veux partir de Q-table.                                               |
-| **EduGym (Leiden University)** — environnements + notebooks ([arXiv][5])                                             | Ce n’est pas *Gymnasium* à proprement parler, mais une suite éducative RL (EduGym) avec des environnements conçus pour illustrer des défis comme l’exploration, l’observation partielle, la stochastique, etc., accompagnés de notebooks pédagogiques.                                           | Intermédiaire → avancé, mais très utile pour étudier des scénarios de RL plus ciblés et didactiques.              |
-| **Gymnasium Tutorials** (site officiel) ([gymnasium.farama.org][6])                                                  | La page “Tutorials” officielle de Gymnasium regroupe des exemples comme *Solving FrozenLake* (Q-Learning tabulaire), *Blackjack*, *Action masking in Taxi*, *Training using REINFORCE for Mujoco*, *Speeding up A2C avec vector envs*, etc. Les notebooks Python / Jupyter sont téléchargeables. | Du niveau débutant au plus avancé (selon le tutorial). Très bon catalogue pour piocher ce qu’on veut approfondir. |
+
+
+## Niveau intermédiaire : tabulaire
+
+1. **Taxi-v3 avec Q-Learning**
+
+   * Implémente un Q-Table (`np.zeros([n_states, n_actions])`).
+   * Utilise epsilon-greedy pour l’exploration.
+   * Trace la courbe de reward moyen sur 5000 épisodes.
+     Objectif : que ton agent atteigne plus de 90% de réussite.
+
+2. **FrozenLake-v1 avec SARSA**
+
+   * Implémente SARSA (on-policy).
+   * Compare les résultats avec Q-Learning.
+     Objectif : observer la différence de stabilité entre les deux.
+
+3. **CliffWalking-v0**
+
+   * Implémente Q-Learning.
+   * Affiche la *policy finale* sous forme de grille (flèches pour actions).
+     Objectif : apprendre à éviter la falaise.
 
 ---
 
+## Niveau avancé : approximation de fonctions
 
-[1]: https://www.datacamp.com/tutorial/reinforcement-learning-with-gymnasium?utm_source=chatgpt.com "Reinforcement Learning with Gymnasium: A Practical Guide"
-[2]: https://colab.research.google.com/github/jeffheaton/app_deep_learning/blob/main/t81_558_class_12_1_ai_gym.ipynb?utm_source=chatgpt.com "Part 12.1: Introduction to Gymnasium - Colab - Google"
-[3]: https://www.digitalocean.com/community/tutorials/getting-started-with-openai-gym?utm_source=chatgpt.com "Getting Started With OpenAI Gym: The Basic Building Blocks"
-[4]: https://www.gocoder.one/blog/rl-tutorial-with-openai-gym/?utm_source=chatgpt.com "Tutorial: An Introduction to Reinforcement Learning Using..."
-[5]: https://arxiv.org/html/2311.10590v2?utm_source=chatgpt.com "EduGym: An Environment And Notebook Suite for ..."
-[6]: https://gymnasium.farama.org/tutorials/index.html?utm_source=chatgpt.com "Tutorials"
+4. **CartPole-v1 avec DQN**
+
+   * Implémente un petit réseau de neurones (2 couches denses).
+   * Ajoute replay buffer + target network.
+     Objectif : atteindre un score supérieur à 195 sur 100 épisodes consécutifs.
+
+5. **LunarLander-v2 avec Policy Gradient (REINFORCE)**
+
+   * Réseau qui sort une distribution de probabilités (Softmax sur actions).
+   * Mise à jour par gradient de politique.
+     Objectif : réussir à atterrir sans crash la majorité du temps.
+
+6. **Acrobot-v1 avec Actor-Critic**
+
+   * Implémente un réseau partagé (features) puis deux têtes : policy et value.
+   * Teste la vitesse de convergence par rapport à REINFORCE.
+     Objectif : balancer l’acrobot au-dessus du seuil.
+
+---
+
+## Bonus avancé
+
+7. **LunarLander-v2 avec PPO (Stable-Baselines3)**
+
+   * Entraîne avec `PPO("MlpPolicy", env)`.
+   * Compare les learning curves avec ton REINFORCE maison.
+
+8. **Breakout-v4 (Atari)**
+
+   * Prétraite les frames (resize, grayscale).
+   * Lance un agent PPO de SB3.
+     Objectif : dépasser un score de 50.
+

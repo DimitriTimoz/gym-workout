@@ -1,4 +1,3 @@
-# Run `pip install "gymnasium[classic-control]"` for this example.
 import gymnasium as gym
 
 # Create our training environment - a cart with a pole that needs balancing
